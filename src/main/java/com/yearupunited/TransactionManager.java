@@ -13,11 +13,17 @@ public class TransactionManager {
     private final List<Transaction> transactions;
     private final Scanner scanner;
     private final String fileName;
+    private String description;
+    private String vendor;
+    private double amount;
 
     public TransactionManager() {
         this.transactions = new ArrayList<>();
         this.scanner = new Scanner(System.in);
         this.fileName = "/Users/cjdeniz/Projects/AccountLedger/src/main/transactions.csv";
+        this.description = "";
+        this.vendor = "";
+        this.amount = 0.00;
     }
 
     public List<Transaction> handleFileReader() {
@@ -34,22 +40,59 @@ public class TransactionManager {
         transactions.add(transaction);
     }
 
-    public void addDeposit() {
+    public void transactionScreen() {
         System.out.print("Enter description: ");
-        String description = scanner.nextLine();
+        description = scanner.nextLine();
 
         System.out.print("Enter vendor: ");
-        String vendor = scanner.nextLine();
+        vendor = scanner.nextLine();
 
         System.out.print("Enter amount: $");
-        double amount = scanner.nextDouble();
+        amount = scanner.nextDouble();
         scanner.nextLine();
+    }
 
-        DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm:ss");
+    public void addDeposit() {
+        transactionScreen();
 
-        Transaction transaction = new Transaction(LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.SECONDS), description, vendor, amount);
+        Transaction transaction = new Transaction(LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.SECONDS), description, vendor, amount
+        );
+
+        System.out.println();
+
+        System.out.println("Adding deposit...");
 
         TransactionFileWriter.writeTransactionFileWriter(fileName, transaction);
+
+        delay(1000);
+
+        System.out.println("Deposit added!");
+
+    }
+
+    public void makePayment() {
+        transactionScreen();
+
+        Transaction transaction = new Transaction(LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.SECONDS), description, vendor, -amount);
+
+        System.out.println();
+
+        System.out.println("Adding payment...");
+
+        TransactionFileWriter.writeTransactionFileWriter(fileName, transaction);
+
+        delay(1000);
+
+        System.out.println("Payment added!");
+
+    }
+
+    public static void delay(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
 }
