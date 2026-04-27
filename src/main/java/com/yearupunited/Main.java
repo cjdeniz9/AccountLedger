@@ -1,5 +1,6 @@
 package com.yearupunited;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +8,18 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        TransactionManager manager = new TransactionManager();
+
+        List<Transaction> transactions = manager.handleFileReader();
+
+        for (Transaction transaction : transactions) {
+            manager.addTranscation(transaction);
+        }
+
+        System.out.println(transactions);
+
         scanner.close();
+
     }
 
     public static void homeScreen(Scanner scanner) {
@@ -18,6 +30,25 @@ public class Main {
         System.out.println("X) Exit");
         System.out.print("> ");
         String option = scanner.nextLine();
+
+        if (option.equalsIgnoreCase("d")) {
+            ledgerScreen(scanner);
+        }
+
+//        else if (option.equalsIgnoreCase("p")) {
+//
+//        }
+    }
+
+    public static void addDepositScreen(Scanner scanner) {
+        System.out.println();
+        System.out.println("=== ADD DEPOSIT ===");
+        System.out.print("Enter amount you want to deposit: ");
+        double deposit = scanner.nextDouble();
+        scanner.nextLine();
+
+
+
     }
 
     public static void ledgerScreen(Scanner scanner) {
