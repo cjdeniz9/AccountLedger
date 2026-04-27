@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,6 +64,7 @@ public class TransactionManager {
         System.out.println("Adding deposit...");
 
         TransactionFileWriter.writeTransactionFileWriter(fileName, transaction);
+        transactions.add(transaction);
 
         delay(1000);
 
@@ -80,11 +82,61 @@ public class TransactionManager {
         System.out.println("Adding payment...");
 
         TransactionFileWriter.writeTransactionFileWriter(fileName, transaction);
+        transactions.add(transaction);
 
         delay(1000);
 
         System.out.println("Payment added!");
 
+    }
+
+    public void displayTransactions() {
+        int count = 1;
+
+        Collections.reverse(transactions);
+
+        System.out.println();
+
+        System.out.println("=== ALL TRANSACTIONS ===");
+
+        for (Transaction transaction : transactions) {
+            System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
+            count++;
+        }
+    }
+
+    public void displayDeposits() {
+        int count = 1;
+
+        Collections.reverse(transactions);
+
+        System.out.println();
+
+        System.out.println("=== ALL DEPOSITS ===");
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() > 0) {
+                System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
+                count++;
+            }
+        }
+    }
+
+    public void displayPayments() {
+        int count = 1;
+
+        Collections.reverse(transactions);
+
+        System.out.println();
+
+        System.out.println("=== ALL PAYMENTS ===");
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() < 0) {
+                System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
+                count++;
+            }
+        }
     }
 
     public static void delay(int ms) {

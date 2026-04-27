@@ -36,6 +36,8 @@ public class Main {
             addDepositScreen(scanner, manager);
         } else if (option.equalsIgnoreCase("p")) {
             makePayment(scanner, manager);
+        } else if (option.equalsIgnoreCase("l")) {
+            ledgerScreen(scanner, manager);
         }
 
     }
@@ -119,7 +121,7 @@ public class Main {
         }
     }
 
-    public static void ledgerScreen(Scanner scanner) {
+    public static void ledgerScreen(Scanner scanner, TransactionManager manager) {
         System.out.println();
 
         System.out.println("=== LEDGER ===");
@@ -131,6 +133,14 @@ public class Main {
         System.out.print("> ");
 
         String option = scanner.nextLine();
+
+        if (option.equalsIgnoreCase("a")) {
+            manager.displayTransactions();
+        } else if (option.equalsIgnoreCase("d")) {
+            manager.displayDeposits();
+        } else if (option.equalsIgnoreCase("p")) {
+            manager.displayPayments();
+        }
     }
 
     public static void reportsScreen(Scanner scanner) {
