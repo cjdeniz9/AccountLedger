@@ -13,16 +13,16 @@ public class Main {
         List<Transaction> transactions = manager.handleFileReader();
 
         for (Transaction transaction : transactions) {
-            manager.addTranscation(transaction);
+            manager.addTransaction(transaction);
         }
 
-        System.out.println(transactions);
+        homeScreen(scanner, manager);
 
         scanner.close();
 
     }
 
-    public static void homeScreen(Scanner scanner) {
+    public static void homeScreen(Scanner scanner, TransactionManager manager) {
         System.out.println("=== ACCOUNT LEDGER ===");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment (Debit)");
@@ -32,23 +32,20 @@ public class Main {
         String option = scanner.nextLine();
 
         if (option.equalsIgnoreCase("d")) {
-            ledgerScreen(scanner);
+            addDepositScreen(scanner, manager);
         }
 
 //        else if (option.equalsIgnoreCase("p")) {
 //
 //        }
+
     }
 
-    public static void addDepositScreen(Scanner scanner) {
+    public static void addDepositScreen(Scanner scanner, TransactionManager manager) {
         System.out.println();
         System.out.println("=== ADD DEPOSIT ===");
-        System.out.print("Enter amount you want to deposit: ");
-        double deposit = scanner.nextDouble();
-        scanner.nextLine();
 
-
-
+        manager.addDeposit();
     }
 
     public static void ledgerScreen(Scanner scanner) {
