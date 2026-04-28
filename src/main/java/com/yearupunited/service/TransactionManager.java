@@ -1,8 +1,9 @@
-package com.yearupunited;
+package com.yearupunited.service;
+
+import com.yearupunited.model.Transaction;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,7 @@ public class TransactionManager {
         this.transactions = new ArrayList<>();
         this.scanner = new Scanner(System.in);
         this.fileName = "/Users/cjdeniz/Projects/AccountLedger/src/main/transactions.csv";
+        this.transactions.addAll(handleFileReader());
         this.description = "";
         this.vendor = "";
         this.amount = 0.00;
@@ -193,7 +195,7 @@ public class TransactionManager {
 
 
 
-    public static void delay(int ms) {
+    public void delay(int ms) {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {

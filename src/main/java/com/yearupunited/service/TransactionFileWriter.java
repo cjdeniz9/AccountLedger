@@ -1,4 +1,6 @@
-package com.yearupunited;
+package com.yearupunited.service;
+
+import com.yearupunited.model.Transaction;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
