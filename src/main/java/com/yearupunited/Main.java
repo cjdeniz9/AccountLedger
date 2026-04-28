@@ -180,16 +180,53 @@ public class Main {
             scanner.nextLine();
 
             if (filterOption == 1) {
-                manager.handleDateFiltering("MONTH TO DATE", 1);
+                manager.dateFiltering("MONTH TO DATE", 1);
                 validInputReports = true;
             } else if (filterOption == 2) {
-                manager.handleDateFiltering("PREVIOUS MONTH", 2);
+                manager.dateFiltering("PREVIOUS MONTH", 2);
                 validInputReports = true;
             } else if (filterOption == 3) {
-                manager.handleDateFiltering("YEAR TO DATE", 3);
+                manager.dateFiltering("YEAR TO DATE", 3);
                 validInputReports = true;
             } else if (filterOption == 4) {
-                manager.handleDateFiltering("PREVIOUS YEAR", 4);
+                manager.dateFiltering("PREVIOUS YEAR", 4);
+                validInputReports = true;
+            } else if (filterOption == 5) {
+                boolean searchingVendor = true;
+
+                while (searchingVendor) {
+                    System.out.println();
+
+                    System.out.print("Enter vendor name: ");
+                    String vendorName = scanner.nextLine();
+
+                    manager.searchByVendor(vendorName);
+
+                    boolean validVendorOption = false;
+
+                    while (!validVendorOption) {
+                        System.out.println();
+
+                        System.out.println("Would you like to:");
+                        System.out.println("V) Search another vendor");
+                        System.out.println("B) Return back to Reports");
+                        System.out.print("> ");
+
+                        String option = scanner.nextLine();
+
+                        if (option.equalsIgnoreCase("v")) {
+                            validVendorOption = true; // exits inner loop, reruns vendor search
+                        } else if (option.equalsIgnoreCase("b")) {
+                            searchingVendor = false;  // exits both loops
+                            validVendorOption = true;
+                            reportsScreen(scanner, manager);
+                        } else {
+                            System.out.println();
+                            System.out.print("Invalid option! Only enter one of the two options available. ");
+                        }
+                    }
+                }
+
                 validInputReports = true;
             } else if (filterOption == 0) {
                 ledgerScreen(scanner, manager);

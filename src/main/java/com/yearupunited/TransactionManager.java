@@ -139,7 +139,7 @@ public class TransactionManager {
         }
     }
 
-    public void handleDateFiltering(String title, int option) {
+    public void dateFiltering(String title, int option) {
         int count = 1;
 
         Collections.reverse(transactions);
@@ -168,6 +168,30 @@ public class TransactionManager {
             }
         }
     }
+
+    public void searchByVendor(String userInput) {
+        int count = 0;
+
+        Collections.reverse(transactions);
+
+        System.out.println();
+
+        System.out.println("====== VENDOR: " + userInput.toUpperCase() + " ======");
+
+        for (Transaction transaction : transactions) {
+
+            if (transaction.getVendor().equalsIgnoreCase(userInput)) {
+                count++;
+                System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("No transactions found.");
+        }
+    }
+
+
 
     public static void delay(int ms) {
         try {
