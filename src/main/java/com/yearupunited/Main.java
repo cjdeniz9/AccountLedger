@@ -23,7 +23,7 @@ public class Main {
     }
 
     public static void homeScreen(Scanner scanner, TransactionManager manager) {
-        System.out.println("=== ACCOUNT LEDGER ===");
+        System.out.println("====== ACCOUNT LEDGER =======");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment (Debit)");
         System.out.println("L) Ledger");
@@ -45,7 +45,7 @@ public class Main {
     public static void addDepositScreen(Scanner scanner, TransactionManager manager) {
         System.out.println();
 
-        System.out.println("=== ADD DEPOSIT ===");
+        System.out.println("====== ADD DEPOSIT =======");
 
         manager.addDeposit();
 
@@ -85,7 +85,7 @@ public class Main {
     public static void makePayment(Scanner scanner, TransactionManager manager) {
         System.out.println();
 
-        System.out.println("=== MAKE PAYMENT===");
+        System.out.println("====== MAKE PAYMENT ======");
 
         manager.makePayment();
 
@@ -114,7 +114,7 @@ public class Main {
             } else {
                 System.out.println();
 
-                System.out.print("Invalid option! Only enter one of the two options available. ");
+                System.out.print("Invalid option! Only enter one of the two options available.");
 
                 System.out.println();
             }
@@ -122,48 +122,120 @@ public class Main {
     }
 
     public static void ledgerScreen(Scanner scanner, TransactionManager manager) {
-        System.out.println();
+        boolean validInput = false;
 
-        System.out.println("=== LEDGER ===");
-        System.out.println("A) All");
-        System.out.println("D) Deposits");
-        System.out.println("P) Payments");
-        System.out.println("R) Reports");
-        System.out.println("H) Home");
-        System.out.print("> ");
+        while (!validInput) {
+            System.out.println();
 
-        String option = scanner.nextLine();
+            System.out.println("====== LEDGER ======");
+            System.out.println("A) All");
+            System.out.println("D) Deposits");
+            System.out.println("P) Payments");
+            System.out.println("R) Reports");
+            System.out.println("H) Home");
+            System.out.print("> ");
 
-        if (option.equalsIgnoreCase("a")) {
-            manager.displayTransactions();
-        } else if (option.equalsIgnoreCase("d")) {
-            manager.displayDeposits();
-        } else if (option.equalsIgnoreCase("p")) {
-            manager.displayPayments();
+            String option = scanner.nextLine();
+
+            if (option.equalsIgnoreCase("a")) {
+                manager.displayTransactions();
+                validInput = true;
+            } else if (option.equalsIgnoreCase("d")) {
+                manager.displayDeposits();
+                validInput = true;
+            } else if (option.equalsIgnoreCase("p")) {
+                manager.displayPayments();
+                validInput = true;
+            } else if (option.equalsIgnoreCase("r")) {
+                reportsScreen(scanner, manager);
+                validInput = true;
+            } else {
+                System.out.println();
+
+                System.out.println("Invalid option! Only enter one of the five options available.");
+
+                System.out.println();
+            }
         }
     }
 
-    public static void reportsScreen(Scanner scanner) {
+    public static void reportsScreen(Scanner scanner, TransactionManager manager) {
+        boolean validInputReports = false;
+
         System.out.println();
 
-        System.out.println("=== REPORTS ===");
-        System.out.println("1) Month To Date");
-        System.out.println("2) Previous Month");
-        System.out.println("3) Year To Date");
-        System.out.println("4) Previous Year");
-        System.out.println("5) Search by Vendor");
-        System.out.println("6) Custom Search");
-        System.out.println("0) Back");
-        System.out.print("> ");
+        while (!validInputReports) {
 
-        int option = scanner.nextInt();
-        scanner.nextLine();
+            System.out.println("====== REPORTS ======");
+            System.out.println("1) Month To Date");
+            System.out.println("2) Previous Month");
+            System.out.println("3) Year To Date");
+            System.out.println("4) Previous Year");
+            System.out.println("5) Search by Vendor");
+            System.out.println("6) Custom Search");
+            System.out.println("0) Back");
+            System.out.print("> ");
+
+            int filterOption = scanner.nextInt();
+            scanner.nextLine();
+
+            if (filterOption == 1) {
+                manager.handleDateFiltering("MONTH TO DATE", 1);
+                validInputReports = true;
+            } else if (filterOption == 2) {
+                manager.handleDateFiltering("PREVIOUS MONTH", 2);
+                validInputReports = true;
+            } else if (filterOption == 3) {
+                manager.handleDateFiltering("YEAR TO DATE", 3);
+                validInputReports = true;
+            } else if (filterOption == 4) {
+                manager.handleDateFiltering("PREVIOUS YEAR", 4);
+                validInputReports = true;
+            } else if (filterOption == 0) {
+                ledgerScreen(scanner, manager);
+                validInputReports = true;
+            } else {
+                System.out.println();
+
+                System.out.println("Invalid option! Select an option that's a number between [0-6] only.");
+
+                System.out.println();
+            }
+        }
+
+        boolean validInput = false;
+
+        while (!validInput) {
+            System.out.println();
+
+            System.out.println("Would you like to:");
+            System.out.println("R) Run another report");
+            System.out.println("L) Return back to Ledger");
+            System.out.print("> ");
+
+            String option = scanner.nextLine();
+
+            if (option.equalsIgnoreCase("r")) {
+                reportsScreen(scanner, manager);
+                validInput = true;
+            } else if (option.equalsIgnoreCase("l")) {
+                ledgerScreen(scanner, manager);
+                validInput = true;
+            } else {
+                System.out.println();
+
+                System.out.print("Invalid option! Only enter one of the two options available.");
+
+                System.out.println();
+            }
+
+        }
     }
 
     public static void customSearchScreen(Scanner scanner) {
         System.out.println();
 
-        System.out.println("=== CUSTOMER SEARCH ===");
+        System.out.println("====== CUSTOMER SEARCH ======");
         System.out.println("S) Start Date");
         System.out.println("E) End Date");
         System.out.println("D) Description");

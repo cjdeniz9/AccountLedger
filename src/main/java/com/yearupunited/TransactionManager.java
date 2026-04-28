@@ -97,7 +97,7 @@ public class TransactionManager {
 
         System.out.println();
 
-        System.out.println("=== ALL TRANSACTIONS ===");
+        System.out.println("====== ALL TRANSACTIONS ======");
 
         for (Transaction transaction : transactions) {
             System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
@@ -112,7 +112,7 @@ public class TransactionManager {
 
         System.out.println();
 
-        System.out.println("=== ALL DEPOSITS ===");
+        System.out.println("====== ALL DEPOSITS ======");
 
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() > 0) {
@@ -129,11 +129,41 @@ public class TransactionManager {
 
         System.out.println();
 
-        System.out.println("=== ALL PAYMENTS ===");
+        System.out.println("====== ALL PAYMENTS ======");
 
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() < 0) {
                 System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
+                count++;
+            }
+        }
+    }
+
+    public void handleDateFiltering(String title, int option) {
+        int count = 1;
+
+        Collections.reverse(transactions);
+
+        System.out.println();
+
+        System.out.println("====== " + title + " ======");
+
+        for (Transaction transaction : transactions) {
+            String entry = count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount();
+
+            if (option == 1 && (transaction.getDate().getMonth() == LocalDate.now().getMonth() &&
+                    transaction.getDate().getYear() == LocalDate.now().getYear())) {
+                System.out.println(entry);
+                count++;
+            } else if (option == 2 && (transaction.getDate().getMonth() == LocalDate.now().minusMonths(1).getMonth() &&
+                    transaction.getDate().getYear() == LocalDate.now().getYear())) {
+                System.out.println(entry);
+                count++;
+            } else if (option == 3 && (transaction.getDate().getYear() == LocalDate.now().getYear())) {
+                System.out.println(entry);
+                count++;
+            } else if (option == 4 && (transaction.getDate().getYear() == LocalDate.now().getYear() - 1)) {
+                System.out.println(entry);
                 count++;
             }
         }
