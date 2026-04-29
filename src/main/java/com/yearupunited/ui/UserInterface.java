@@ -18,8 +18,8 @@ public class UserInterface {
         while (!currentScreen.equals("exit")) {
             switch (currentScreen) {
                 case "home" -> currentScreen = homeScreen();
-                case "deposit" -> currentScreen = addDepositScreen();
-                case "payment" -> currentScreen = makePayment();
+                case "sale" -> currentScreen = addSaleScreen();
+                case "purchase" -> currentScreen = addPurchaseScreen();
                 case "ledger" -> currentScreen = ledgerScreen();
                 case "reports" -> currentScreen = reportsScreen();
                 case "custom" -> currentScreen = customSearchScreen();
@@ -36,54 +36,54 @@ public class UserInterface {
 
     public String homeScreen() {
         System.out.println();
-        System.out.println("====== ACCOUNT LEDGER =======");
-        System.out.println("D) Add Deposit");
-        System.out.println("P) Make Payment (Debit)");
+        System.out.println("====== Remseys Records =======");
+        System.out.println("D) Add Sale");
+        System.out.println("P) Add Purchase");
         System.out.println("L) Ledger");
         System.out.println("X) Exit");
         System.out.print("> ");
 
-        String option = manager.getStringInput("D", "P", "L", "X");
+        String option = manager.getStringInput("S", "P", "L", "X");
 
-        if (option.equalsIgnoreCase("d")) return "deposit";
-        else if (option.equalsIgnoreCase("p")) return "payment";
+        if (option.equalsIgnoreCase("S")) return "sales";
+        else if (option.equalsIgnoreCase("p")) return "purchase";
         else if (option.equalsIgnoreCase("l")) return "ledger";
         else return "exit";
     }
 
-    public String addDepositScreen() {
+    public String addSaleScreen() {
         System.out.println();
-        System.out.println("====== ADD DEPOSIT =======");
+        System.out.println("====== ADD SALE =======");
 
-        manager.addDeposit();
+        manager.addSale();
 
         System.out.println();
         System.out.println("Would you like to: ");
-        System.out.println("D) Make another deposit");
-        System.out.println("X) Return back to home screen");
+        System.out.println("S) Add another sale");
+        System.out.println("X) Return home");
         System.out.print("> ");
 
-        String option = manager.getStringInput("D", "X");
+        String option = manager.getStringInput("S", "X");
 
-        if (option.equalsIgnoreCase("d")) return "deposit";
+        if (option.equalsIgnoreCase("s")) return "sale";
         else return "home";
     }
 
-    public String makePayment() {
+    public String addPurchaseScreen() {
         System.out.println();
-        System.out.println("====== MAKE PAYMENT ======");
+        System.out.println("====== ADD PURCHASE ======");
 
-        manager.makePayment();
+        manager.addPurchase();
 
         System.out.println();
         System.out.println("Would you like to: ");
-        System.out.println("P) Make another payment");
-        System.out.println("X) Return back to home screen");
+        System.out.println("P) Add another purchase");
+        System.out.println("X) Return home");
         System.out.print("> ");
 
         String option = manager.getStringInput("P", "X");
 
-        if (option.equalsIgnoreCase("p")) return "payment";
+        if (option.equalsIgnoreCase("p")) return "purchase";
         else return "home";
     }
 
@@ -91,22 +91,22 @@ public class UserInterface {
         System.out.println();
         System.out.println("====== LEDGER ======");
         System.out.println("A) All");
-        System.out.println("D) Deposits");
-        System.out.println("P) Payments");
+        System.out.println("S) Sales");
+        System.out.println("P) Purchases");
         System.out.println("R) Reports");
         System.out.println("H) Home");
         System.out.print("> ");
 
-        String option = manager.getStringInput("A", "D", "P", "R", "H");
+        String option = manager.getStringInput("A", "S", "P", "R", "H");
 
         if (option.equalsIgnoreCase("a")) {
             manager.displayTransactions();
             return "ledger";
-        } else if (option.equalsIgnoreCase("d")) {
-            manager.displayDeposits();
+        } else if (option.equalsIgnoreCase("s")) {
+            manager.displaySales();
             return "ledger";
         } else if (option.equalsIgnoreCase("p")) {
-            manager.displayPayments();
+            manager.displayPurchases();
             return "ledger";
         } else if (option.equalsIgnoreCase("r")) {
             return "reports";
@@ -150,7 +150,7 @@ public class UserInterface {
                 System.out.println();
                 System.out.println("Would you like to:");
                 System.out.println("V) Search another vendor");
-                System.out.println("B) Return back to Reports");
+                System.out.println("B) Return to Reports");
                 System.out.print("> ");
 
                 String option = manager.getStringInput("V", "B");

@@ -1,45 +1,131 @@
 date|time|description|vendor|amount
-2024-01-05|09:15:00|Grocery shopping|Whole Foods|85.43
-2024-01-18|14:22:00|Gas station|Shell|52.10
-2024-03-10|18:45:00|Dinner out|Olive Garden|67.89
-2024-06-22|11:30:00|Online purchase|Amazon|134.99
-2024-09-15|08:00:00|Coffee|Starbucks|12.50
-2024-11-30|16:10:00|Pharmacy|CVS|23.75
-2025-01-07|13:55:00|Clothing|Nike|99.99
-2025-02-14|10:05:00|Electronics|Best Buy|249.99
-2025-03-19|19:30:00|Movie tickets|AMC|38.50
-2025-04-01|12:00:00|Gym membership|LA Fitness|45.00
-2026-01-10|09:00:00|Grocery shopping|Trader Joes|76.32
-2026-02-14|11:45:00|Valentines dinner|Nobu|210.00
-2026-03-05|14:30:00|Online purchase|Amazon|89.99
-2026-03-22|16:00:00|Gas station|Shell|48.75
-2026-04-01|08:30:00|Coffee|Starbucks|14.50
-2026-04-10|13:00:00|Gym membership|LA Fitness|45.00
-2026-04-20|17:45:00|Grocery shopping|Whole Foods|92.18
-2026-04-25|10:15:00|Online purchase|Amazon|59.99
-2026-04-27|13:59:38|asd|asd|123.00
-2026-04-27|14:00:02|as|asd|123.00
-2026-04-27|14:00:10|asd|asd|-123.00
-2026-04-27|14:33:15|asd|asd|123.00
-2026-04-27|14:33:22|asdasdasd|sdwedfqwefd|123.00
-2026-04-27|15:03:44|asd|asd|123.00
-2026-04-27|15:05:17|new|new|-123.00
-2026-04-27|15:08:31|TESTING|TESTING|123.00
-2026-04-28|09:49:35|asd|asd|-123.00
-2026-04-28|13:34:38|asd|asd|234.00
-2026-04-28|13:38:06|Amazon|Amazon|123.00
-2026-04-28|13:38:27|phone|app;e|1992.00
-2026-04-28|13:38:41|mug|amazon|-123.00
-2026-04-28|13:38:53|speaker|amazpon|-123.00
-2026-04-28|13:54:17|asd|asd|123.00
-2026-04-28|13:58:57|asd|asd|123.00
-2026-04-28|13:59:41|strokes|strokes|99.00
-2026-04-28|14:01:12|room|room|23.21
-2026-04-29|09:27:22|asd|asd|123.00
-2026-04-29|09:29:48|123|asd|123.00
-2026-04-29|09:36:38|asd|asd|123.00
-2026-04-29|09:41:41|asd|2|123.00
-2026-04-29|09:42:04|asd|asd|123.00
-2026-04-29|09:53:08|asd|asd|123.00
-2026-04-29|14:16:01|hello|h|123.00
-2026-04-29|14:16:31|asd|asd|-123.00
+1998-04-19|14:22:00|Vinyl - Is This It by The Strokes|James|21.99
+1998-06-12|10:30:00|Vinyl Stock - Classic Rock Bundle x30|Supplier Records Direct|-210.00
+1998-09-03|11:15:00|Vintage Pioneer CS-99 Speakers|Michael|349.99
+1998-11-20|09:00:00|Vinyl Stock - The Strokes Bundle x20|Supplier Records Direct|-180.00
+1999-01-08|13:45:00|Vinyl - Room on Fire by The Strokes|Sarah|19.99
+1999-03-15|08:30:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-75.00
+1999-07-22|15:00:00|Vinyl - David Bowie Ziggy Stardust|Carlos|29.99
+1999-10-11|10:15:00|Vinyl Stock - Jazz Collection x25|Blue Note Records Supply|-175.00
+2000-02-14|12:00:00|Vinyl - Pink Floyd Dark Side of the Moon|Emily|34.99
+2000-05-30|09:30:00|Vintage Pioneer CS-77 Speakers|Marcus|279.99
+2000-08-18|08:45:00|Vinyl Stock - Blues Collection x20|Supplier Records Direct|-140.00
+2000-11-05|14:00:00|Vinyl - Led Zeppelin IV|Rachel|32.99
+2001-01-22|11:30:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-95.00
+2001-04-09|16:15:00|Vinyl - Fleetwood Mac Rumours|Tony|27.99
+2001-07-17|09:00:00|Vinyl Stock - 90s Alternative x20|Supplier Records Direct|-160.00
+2001-10-28|13:30:00|Turntable - Audio Technica AT-LP120|Diana|299.99
+2002-02-03|10:00:00|Vinyl - The Velvet Underground and Nico|Kevin|31.99
+2002-05-19|08:30:00|Vintage Pioneer CS-R590 Speakers|Lisa|199.99
+2002-08-07|15:45:00|Vinyl Stock - The Strokes Bundle x15|Supplier Records Direct|-135.00
+2002-11-14|11:00:00|Vinyl - Radiohead OK Computer|Andre|33.99
+2003-01-29|09:15:00|Store Supplies and Packaging|Office Depot|-65.00
+2003-04-16|14:30:00|Vinyl - Arctic Monkeys AM|Nina|26.99
+2003-07-03|10:45:00|Vintage Pioneer CS-A31 Speakers|Omar|159.99
+2003-10-21|08:30:00|Vinyl Stock - New Arrivals x40|Supplier Records Direct|-280.00
+2004-01-08|13:00:00|Vinyl - The Beatles Abbey Road|Sophie|35.99
+2004-04-25|11:15:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-110.00
+2004-07-12|16:00:00|Vinyl - First Impressions of Earth by The Strokes|Derek|22.99
+2004-10-30|09:45:00|Record Cleaning Kit|Priya|45.99
+2005-02-17|14:15:00|Vinyl Stock - Classic Rock Bundle x30|Supplier Records Direct|-210.00
+2005-05-04|10:30:00|Vintage Pioneer CS-G303 Speakers|Tyler|229.99
+2005-08-22|08:45:00|Vinyl - Angles by The Strokes|Maria|18.99
+2005-11-09|13:15:00|Record Cleaning Supplies|Audio Cleaning Pro|-55.00
+2006-01-26|11:00:00|Vinyl - Comedown Machine by The Strokes|Jason|18.99
+2006-04-14|09:30:00|Vintage Pioneer CS-E9900 Speakers|Ava|449.99
+2006-07-01|15:00:00|Vinyl Stock - Jazz Collection x25|Blue Note Records Supply|-175.00
+2006-10-19|10:00:00|Turntable - Pro-Ject Debut Carbon|Chris|499.99
+2007-01-06|14:45:00|Vinyl - New Abnormal by The Strokes|Naomi|24.99
+2007-04-23|08:30:00|Vintage Pioneer CS-77A Speakers|Bruno|319.99
+2007-07-10|11:30:00|Vinyl Stock - Beatles and Classics x25|Supplier Records Direct|-195.00
+2007-10-28|13:00:00|Phono Preamp - Rega Fono Mini|Elena|99.99
+2008-01-15|09:15:00|Vinyl - Nirvana Nevermind|Patrick|29.99
+2008-04-02|16:30:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-75.00
+2008-07-20|10:45:00|Vinyl Bundle - Classic Rock Collection|Zoe|89.99
+2008-11-07|08:30:00|Vinyl Stock - 90s Alternative x20|Supplier Records Direct|-160.00
+2009-02-24|14:00:00|Vintage Pioneer CS-R700 Speakers|Felix|389.99
+2009-05-13|11:15:00|Vinyl - Is This It by The Strokes|Amber|21.99
+2009-08-30|09:30:00|Store Supplies and Packaging|Office Depot|-58.00
+2009-12-17|13:45:00|Turntable Needle Replacement|Liam|49.99
+2010-03-06|10:00:00|Vinyl Stock - Blues Collection x20|Supplier Records Direct|-140.00
+2010-06-23|15:15:00|Vinyl - Room on Fire by The Strokes|Iris|19.99
+2010-09-10|08:45:00|Record Storage Crate|Victor|39.99
+2010-12-28|11:30:00|Vintage Pioneer CS-R590 Speakers|Hannah|199.99
+2011-03-17|14:00:00|Vinyl Stock - New Arrivals x40|Supplier Records Direct|-280.00
+2011-06-04|09:15:00|Vinyl - Pink Floyd Dark Side of the Moon|Diego|34.99
+2011-09-21|16:30:00|Speaker Stands Pair|Maya|89.99
+2011-12-09|10:45:00|Record Cleaning Supplies|Audio Cleaning Pro|-48.00
+2012-02-26|13:00:00|Vinyl - Led Zeppelin IV|Owen|32.99
+2012-05-15|08:30:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-95.00
+2012-08-02|11:45:00|Vintage Pioneer CS-G303 Speakers|Chloe|229.99
+2012-11-19|15:00:00|Vinyl Stock - The Strokes Bundle x20|Supplier Records Direct|-180.00
+2013-02-06|09:30:00|Vinyl - Fleetwood Mac Rumours|Ivan|27.99
+2013-05-25|14:15:00|Turntable - Audio Technica AT-LP120|Rosa|299.99
+2013-08-12|10:00:00|Vinyl Stock - Jazz Collection x25|Blue Note Records Supply|-175.00
+2013-11-29|08:45:00|Vintage Pioneer CS-99 Speakers|Ethan|349.99
+2014-02-16|13:30:00|Vinyl - Radiohead OK Computer|Leila|33.99
+2014-05-05|11:00:00|Vinyl Stock - Classic Rock Bundle x30|Supplier Records Direct|-210.00
+2014-08-22|16:15:00|Phono Preamp - Pro-Ject Phono Box|Marcus|149.99
+2014-11-09|09:45:00|Vinyl - Arctic Monkeys AM|Jade|26.99
+2015-01-27|14:00:00|Estate Sale Pioneer Speakers x3|Estate Sale Finds|-420.00
+2015-04-15|10:30:00|Vinyl - The Velvet Underground and Nico|Noah|31.99
+2015-07-03|08:30:00|Vinyl Stock - 90s Alternative x20|Supplier Records Direct|-160.00
+2015-09-20|13:15:00|Turntable - Pro-Ject Debut Carbon|Stella|499.99
+2015-12-08|11:00:00|Store Supplies and Packaging|Office Depot|-65.00
+2016-02-25|15:30:00|Vinyl - The Beatles Abbey Road|Leo|35.99
+2016-05-14|09:00:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-110.00
+2016-08-01|14:45:00|Vinyl Bundle - Jazz Collection|Ruby|74.99
+2016-10-19|10:15:00|Vinyl Stock - Blues Collection x20|Supplier Records Direct|-140.00
+2017-01-06|13:00:00|Vintage Pioneer CS-A31 Speakers|Cole|159.99
+2017-03-25|08:30:00|Vinyl - Nirvana Nevermind|Vera|29.99
+2017-06-12|11:45:00|Vinyl Stock - New Arrivals x40|Supplier Records Direct|-280.00
+2017-09-29|15:00:00|Vinyl - First Impressions of Earth by The Strokes|Miles|22.99
+2017-12-17|09:30:00|Record Cleaning Kit|Nora|45.99
+2018-03-06|14:15:00|Vinyl Stock - Beatles and Classics x25|Supplier Records Direct|-195.00
+2018-05-23|10:45:00|Vintage Pioneer CS-E9900 Speakers|Hugo|449.99
+2018-08-10|08:30:00|Vinyl - Angles by The Strokes|Petra|18.99
+2018-10-28|13:30:00|Record Cleaning Supplies|Audio Cleaning Pro|-55.00
+2019-01-15|11:00:00|Vinyl - Comedown Machine by The Strokes|Finn|18.99
+2019-04-03|16:15:00|Turntable - Rega Planar 1|Clara|649.99
+2019-06-21|09:45:00|Vinyl Stock - Jazz Collection x25|Blue Note Records Supply|-175.00
+2019-09-08|14:00:00|Vintage Pioneer CS-77 Speakers|Eli|279.99
+2019-11-26|10:30:00|Vinyl - New Abnormal by The Strokes|Mia|24.99
+2020-02-13|08:45:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-75.00
+2020-05-01|13:15:00|Vinyl Bundle - 90s Alternative Collection|Kai|94.99
+2020-07-19|11:00:00|Vinyl Stock - The Strokes Bundle x15|Supplier Records Direct|-135.00
+2020-10-06|15:30:00|Phono Preamp - Rega Fono Mini|Luna|99.99
+2020-12-24|09:00:00|Store Supplies and Packaging|Office Depot|-58.00
+2021-03-13|14:30:00|Vinyl - David Bowie Ziggy Stardust|Rex|29.99
+2021-06-01|10:00:00|Vintage Pioneer CS-R700 Speakers|Aria|389.99
+2021-08-19|08:30:00|Vinyl Stock - Classic Rock Bundle x30|Supplier Records Direct|-210.00
+2021-11-06|13:45:00|Vinyl - Is This It by The Strokes|Jude|21.99
+2022-01-24|11:15:00|Record Storage Crate|Tess|39.99
+2022-04-12|16:00:00|Vinyl Stock - Blues Collection x20|Supplier Records Direct|-140.00
+2022-07-01|09:30:00|Vintage Pioneer CS-77A Speakers|Beau|319.99
+2022-09-18|14:15:00|Vinyl - Room on Fire by The Strokes|Faye|19.99
+2022-12-06|10:45:00|Turntable Needle Replacement|Reid|49.99
+2023-02-23|08:30:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-95.00
+2023-05-12|13:00:00|Vinyl - Fleetwood Mac Rumours|Ivy|27.99
+2023-07-30|11:15:00|Vinyl Stock - New Arrivals x40|Supplier Records Direct|-280.00
+2023-10-17|15:30:00|Vintage Pioneer CS-G303 Speakers|Zara|229.99
+2024-01-04|09:00:00|Record Cleaning Supplies|Audio Cleaning Pro|-48.00
+2024-03-23|14:45:00|Vinyl - Led Zeppelin IV|Gus|32.99
+2024-06-10|10:15:00|Vinyl Stock - Jazz Collection x25|Blue Note Records Supply|-175.00
+2024-08-28|08:45:00|Speaker Stands Pair|Phoebe|89.99
+2024-11-15|13:30:00|Vinyl - Radiohead OK Computer|Seth|33.99
+2025-02-02|11:00:00|Vinyl Stock - Beatles and Classics x25|Supplier Records Direct|-195.00
+2025-04-21|16:15:00|Vintage Pioneer CS-E9900 Speakers|Ada|449.99
+2025-07-09|09:30:00|Vinyl - Arctic Monkeys AM|Theo|26.99
+2025-09-26|14:00:00|Estate Sale Pioneer Speakers x3|Estate Sale Finds|-420.00
+2025-12-14|10:30:00|Vinyl - The Beatles Abbey Road|Isla|35.99
+2026-01-10|09:15:00|Vinyl Stock - The Strokes Bundle x20|Supplier Records Direct|-180.00
+2026-01-22|11:30:00|Vinyl - New Abnormal by The Strokes|Cora|24.99
+2026-02-05|08:30:00|Pioneer Speaker Restoration Parts|Vintage Audio Supply|-110.00
+2026-02-18|14:00:00|Vintage Pioneer CS-99 Speakers|Axel|349.99
+2026-03-03|10:45:00|Vinyl Stock - 90s Alternative x20|Supplier Records Direct|-160.00
+2026-03-16|13:15:00|Vinyl - First Impressions of Earth by The Strokes|June|22.99
+2026-03-29|09:00:00|Record Cleaning Kit|Remi|45.99
+2026-04-05|15:30:00|Vinyl Stock - New Arrivals x40|Supplier Records Direct|-280.00
+2026-04-12|11:00:00|Vintage Pioneer CS-R700 Speakers|Otto|389.99
+2026-04-19|14:30:00|Vinyl - Angles by The Strokes|Wren|18.99
+2026-04-26|09:45:00|Phono Preamp - Pro-Ject Phono Box|Sage|149.99

@@ -44,7 +44,7 @@ public class TransactionManager {
         amount = getDoubleInput();
     }
 
-    public void addDeposit() {
+    public void addSale() {
         transactionScreen();
 
         Transaction transaction = new Transaction(LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.SECONDS), description, vendor, amount
@@ -52,32 +52,32 @@ public class TransactionManager {
 
         System.out.println();
 
-        System.out.println("Adding deposit...");
+        System.out.println("Adding sale...");
 
         TransactionFileWriter.writeTransactionFileWriter(fileName, transaction);
         transactions.add(transaction);
 
         delay(1000);
 
-        System.out.println("Deposit added!");
+        System.out.println("Sale added!");
 
     }
 
-    public void makePayment() {
+    public void addPurchase() {
         transactionScreen();
 
         Transaction transaction = new Transaction(LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.SECONDS), description, vendor, -amount);
 
         System.out.println();
 
-        System.out.println("Adding payment...");
+        System.out.println("Adding purchase...");
 
         TransactionFileWriter.writeTransactionFileWriter(fileName, transaction);
         transactions.add(transaction);
 
         delay(1000);
 
-        System.out.println("Payment added!");
+        System.out.println("Purchase added!");
 
     }
 
@@ -96,14 +96,14 @@ public class TransactionManager {
         }
     }
 
-    public void displayDeposits() {
+    public void displaySales() {
         int count = 1;
 
         Collections.reverse(transactions);
 
         System.out.println();
 
-        System.out.println("====== ALL DEPOSITS ======");
+        System.out.println("====== ALL SALES ======");
 
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() > 0) {
@@ -113,14 +113,14 @@ public class TransactionManager {
         }
     }
 
-    public void displayPayments() {
+    public void displayPurchases() {
         int count = 1;
 
         Collections.reverse(transactions);
 
         System.out.println();
 
-        System.out.println("====== ALL PAYMENTS ======");
+        System.out.println("====== ALL PURCHASES ======");
 
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() < 0) {
