@@ -36,7 +36,7 @@ public class UserInterface {
 
     public String homeScreen() {
         System.out.println();
-        System.out.println("====== Remseys Records =======");
+        System.out.println("====== REMSEY'S RECORDS =======");
         System.out.println("D) Add Sale");
         System.out.println("P) Add Purchase");
         System.out.println("L) Ledger");
