@@ -26,9 +26,9 @@ Remsey's Records Ledger is a Java CLI application designed to track all financia
 
 ## Features
 
-- ✅ Add deposits (sales) and payments (purchases) with automatic timestamps
+- ✅ Add sales and purchases with automatic timestamps
 - ✅ View full transaction ledger sorted newest to oldest
-- ✅ Filter transactions by deposits only or payments only
+- ✅ Filter transactions by sales only or purchases only
 - ✅ Pre-defined reports: Month to Date, Previous Month, Year to Date, Previous Year
 - ✅ Search transactions by vendor name
 - ✅ Custom search by start date, end date, description, vendor, and amount
@@ -78,14 +78,14 @@ date|time|description|vendor|amount
 ### 🏠 Home Screen
 ```
 ====== REMSEY'S RECORDS ======
-D) Add Deposit
-P) Make Payment (Debit)
+D) Add Sale
+P) Make Purchase
 L) Ledger
 X) Exit
 ```
 
-- **D) Add Deposit** — Log a customer sale (vinyl, speakers, turntables, accessories)
-- **P) Make Payment** — Log a supplier purchase or store expense
+- **D) Add Sale** — Log a customer sale (vinyl, speakers, turntables, accessories)
+- **P) Make Purchase** — Log a supplier purchase or store expense
 - **L) Ledger** — View and manage all transactions
 - **X) Exit** — Exit the application
 
@@ -95,15 +95,15 @@ X) Exit
 ```
 ====== LEDGER ======
 A) All
-D) Deposits
-P) Payments
+D) Sales
+P) Purchases
 R) Reports
 H) Home
 ```
 
 - **A) All** — Display all transactions, newest first
-- **D) Deposits** — Display only sales (positive amounts)
-- **P) Payments** — Display only purchases/expenses (negative amounts)
+- **D) Sales** — Display only sales (positive amounts)
+- **P) Purchases** — Display only purchases/expenses (negative amounts)
 - **R) Reports** — Navigate to the Reports screen
 - **H) Home** — Return to the Home screen
 
@@ -209,8 +209,8 @@ public void start() {
     while (!currentScreen.equals("exit")) {
         switch (currentScreen) {
             case "home"    -> currentScreen = homeScreen();
-            case "deposit" -> currentScreen = addDepositScreen();
-            case "payment" -> currentScreen = makePayment();
+            case "sale" -> currentScreen = addSaleScreen();
+            case "purchase" -> currentScreen = addPurchaseScreen();
             case "ledger"  -> currentScreen = ledgerScreen();
             case "reports" -> currentScreen = reportsScreen();
             case "custom"  -> currentScreen = customSearchScreen();
