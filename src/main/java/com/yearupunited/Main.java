@@ -8,7 +8,7 @@ public class Main {
 
         TransactionManager manager = new TransactionManager();
         UserInterface ui = new UserInterface(manager);
-        ui.homeScreen();
+        ui.start();
 
     }
 }

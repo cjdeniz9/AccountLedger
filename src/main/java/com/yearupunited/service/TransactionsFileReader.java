@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class TransactionsFileReader {
 
-    public ArrayList<Transaction> readTranscationsFromCsv (String fileName) {
+    public ArrayList<Transaction> readTransactionsFromCsv(String fileName) {
 
         ArrayList<Transaction> transactions = new ArrayList<>();
 

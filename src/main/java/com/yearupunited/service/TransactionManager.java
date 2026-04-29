@@ -5,10 +5,7 @@ import com.yearupunited.model.Transaction;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class TransactionManager {
 
@@ -32,27 +29,18 @@ public class TransactionManager {
     public List<Transaction> handleFileReader() {
         TransactionsFileReader fileReader = new TransactionsFileReader();
 
-        return fileReader.readTranscationsFromCsv(fileName);
-    }
-
-    public void addTransaction(Transaction transaction) {
-        if (transaction == null) {
-            throw new IllegalArgumentException("Transaction cannot be null");
-        }
-
-        transactions.add(transaction);
+        return fileReader.readTransactionsFromCsv(fileName);
     }
 
     public void transactionScreen() {
         System.out.print("Enter description: ");
-        description = scanner.nextLine();
+        description = getStringInput();
 
         System.out.print("Enter vendor: ");
-        vendor = scanner.nextLine();
+        vendor = getStringInput();
 
         System.out.print("Enter amount: $");
-        amount = scanner.nextDouble();
-        scanner.nextLine();
+        amount = getDoubleInput();
     }
 
     public void addDeposit() {
@@ -144,13 +132,14 @@ public class TransactionManager {
     public void dateFiltering(String title, int option) {
         int count = 1;
 
-        Collections.reverse(transactions);
+        List<Transaction> sorted = new ArrayList<>(transactions);
+        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
 
         System.out.println();
 
         System.out.println("====== " + title + " ======");
 
-        for (Transaction transaction : transactions) {
+        for (Transaction transaction : sorted) {
             String entry = count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount();
 
             if (option == 1 && (transaction.getDate().getMonth() == LocalDate.now().getMonth() &&
@@ -193,7 +182,93 @@ public class TransactionManager {
         }
     }
 
+    public String getStringInput(String... validOptions) {
+        String input = scanner.nextLine();
 
+        if (validOptions.length == 0) {
+            while (input.trim().isEmpty()) {
+                System.out.print("Field cannot be empty: ");
+                input = scanner.nextLine();
+            }
+            return input;
+        }
+
+        while (true) {
+            if (input.trim().isEmpty()) {
+                System.out.print("Field cannot be empty! Please enter a option: ");
+            } else {
+                for (String option : validOptions) {
+                    if (input.equalsIgnoreCase(option)) {
+                        return input;
+                    }
+                }
+                System.out.print("Invalid option! Only enter one of these options [ " + String.join(", ", validOptions) + " ]: ");
+            }
+            input = scanner.nextLine();
+        }
+    }
+
+    public int getIntInput(int... validOptions) {
+        int input = 0;
+        boolean validInput = false;
+
+        while (!validInput) {
+            String line = scanner.nextLine().trim();
+
+            if (line.isEmpty()) {
+                System.out.print("Field cannot be empty! Please enter a number: ");
+            } else {
+                try {
+                    input = Integer.parseInt(line);
+
+                    if (validOptions.length == 0) {
+                        validInput = true; // any number accepted
+                    } else {
+                        for (int option : validOptions) {
+                            if (input == option) {
+                                validInput = true;
+                                break;
+                            }
+                        }
+                        if (!validInput) {
+                            System.out.print("Invalid option! Only enter one of these options [ " +
+                                    Arrays.toString(validOptions).replaceAll("[\\[\\]]", "") + " ]: ");
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.print("Invalid option! Please enter a number: ");
+                }
+            }
+        }
+
+        return input;
+    }
+
+    public double getDoubleInput() {
+        double input = 0;
+        boolean validInput = false;
+
+        while (!validInput) {
+            String line = scanner.nextLine().trim();
+
+            if (line.isEmpty()) {
+                System.out.print("Invalid input! Amount cannot be empty: $");
+            } else {
+                try {
+                    input = Double.parseDouble(line);
+                    if (input == 0) {
+                        System.out.print("Invalid input! Amount cannot be zero: $");
+                    } else {
+                        validInput = true;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.print("Invalid input! Please enter a number: $");
+                }
+            }
+        }
+
+        return input;
+    }
 
     public void delay(int ms) {
         try {
