@@ -4,6 +4,7 @@ import com.yearupunited.model.Transaction;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -160,6 +161,49 @@ public class TransactionManager {
         }
     }
 
+    public void dateRange(LocalDate startDate, LocalDate endDate) {
+        int count = 1;
+
+        List<Transaction> sorted = new ArrayList<>(transactions);
+        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+
+        System.out.println();
+
+        System.out.println("====== DATE RANGE: " + startDate + " - " + endDate + " ======");
+
+        for (Transaction transaction : sorted) {
+            String entry = count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount();
+
+            LocalDate date = transaction.getDate();
+
+            if (!date.isBefore(startDate) && !date.isAfter(endDate)) {
+                System.out.println(transaction);
+            }
+        }
+    }
+
+    public void searchByDescription(String userInput) {
+        int count = 0;
+
+        Collections.reverse(transactions);
+
+        System.out.println();
+
+        System.out.println("====== DESCRIPTION: " + userInput.toUpperCase() + " ======");
+
+        for (Transaction transaction : transactions) {
+
+            if (transaction.getDescription().toLowerCase().contains(userInput.toLowerCase())) {
+                count++;
+                System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("No transactions found.");
+        }
+    }
+
     public void searchByVendor(String userInput) {
         int count = 0;
 
@@ -171,7 +215,29 @@ public class TransactionManager {
 
         for (Transaction transaction : transactions) {
 
-            if (transaction.getVendor().equalsIgnoreCase(userInput)) {
+            if (transaction.getVendor().toLowerCase().contains(userInput.toLowerCase())) {
+                count++;
+                System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("No transactions found.");
+        }
+    }
+
+    public void amountRange(double startingAmount, double endingAmount) {
+        int count = 0;
+
+        Collections.reverse(transactions);
+
+        System.out.println();
+
+        System.out.println("====== AMOUNT RANGE: " + startingAmount + " - " + endingAmount + " ======");
+
+        for (Transaction transaction : transactions) {
+
+            if (transaction.getAmount() >= startingAmount && transaction.getAmount() <= endingAmount) {
                 count++;
                 System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
             }
@@ -222,7 +288,7 @@ public class TransactionManager {
                     input = Integer.parseInt(line);
 
                     if (validOptions.length == 0) {
-                        validInput = true; // any number accepted
+                        validInput = true; // Any number accepted
                     } else {
                         for (int option : validOptions) {
                             if (input == option) {
@@ -268,6 +334,22 @@ public class TransactionManager {
         }
 
         return input;
+    }
+
+    public LocalDate getDateInput() {
+        while (true) {
+            String date = scanner.nextLine().trim();
+
+            if (date.isEmpty()) {
+                System.out.print("Field cannot be empty! Please enter a date (yyyy-MM-dd): ");
+            } else {
+                try {
+                    return LocalDate.parse(date);
+                } catch (DateTimeParseException e) {
+                    System.out.print("Invalid date format! Please enter date as (yyyy-MM-dd): ");
+                }
+            }
+        }
     }
 
     public void delay(int ms) {

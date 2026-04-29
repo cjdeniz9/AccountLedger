@@ -2,6 +2,8 @@ package com.yearupunited.ui;
 
 import com.yearupunited.service.TransactionManager;
 
+import java.time.LocalDate;
+
 public class UserInterface {
 
     private final TransactionManager manager;
@@ -165,30 +167,57 @@ public class UserInterface {
             return "ledger";
         }
 
-        System.out.println();
-        System.out.println("Would you like to:");
-        System.out.println("R) Run another report");
-        System.out.println("L) Return back to Ledger");
-        System.out.print("> ");
-
-        String option = manager.getStringInput("R", "L");
-
-        if (option.equalsIgnoreCase("r")) return "reports";
-        else return "ledger";
+        return "reports";
     }
 
     public String customSearchScreen() {
         System.out.println();
         System.out.println("====== CUSTOM SEARCH ======");
-        System.out.println("S) Start Date");
-        System.out.println("E) End Date");
+        System.out.println("C) Date");
         System.out.println("D) Description");
         System.out.println("V) Vendor");
         System.out.println("A) Amount");
         System.out.println("L) Ledger");
         System.out.print("> ");
 
-        String option = manager.getStringInput("S", "E", "D", "V", "A", "L");
+        String option = manager.getStringInput("C", "D", "V", "A", "L");
+
+        if (option.equalsIgnoreCase("c")) {
+            System.out.println();
+            System.out.print("Enter start date: ");
+
+            LocalDate startDate = manager.getDateInput();
+
+            System.out.print("Enter end date: ");
+            LocalDate endDate = manager.getDateInput();
+
+            manager.dateRange(startDate, endDate);
+        } else if (option.equalsIgnoreCase("d")) {
+            System.out.println();
+            System.out.print("Enter description: ");
+
+            String inputDescription = manager.getStringInput();
+
+            manager.searchByDescription(inputDescription);
+        } else if (option.equalsIgnoreCase("v")) {
+            System.out.println();
+            System.out.print("Enter vendor: ");
+
+            String inputVendor = manager.getStringInput();
+
+            manager.searchByVendor(inputVendor);
+        } else if (option.equalsIgnoreCase("a")) {
+            System.out.println();
+            System.out.print("Enter starting amount: ");
+
+            double startingAmount = manager.getDoubleInput();
+
+            System.out.print("Enter ending amount: ");
+
+            double endingAmount = manager.getDoubleInput();
+
+            manager.amountRange(startingAmount, endingAmount);
+        }
 
         if (option.equalsIgnoreCase("l")) return "ledger";
         else return "custom";
