@@ -40,7 +40,7 @@ public class UserInterface {
     public String homeScreen() {
         System.out.println();
         System.out.println("====== REMSEY'S RECORDS =======");
-        System.out.println("D) Add Sale");
+        System.out.println("S) Add Sale");
         System.out.println("P) Add Purchase");
         System.out.println("L) Ledger");
         System.out.println("X) Exit");
@@ -48,7 +48,7 @@ public class UserInterface {
 
         String option = manager.getStringInput("S", "P", "L", "X");
 
-        if (option.equalsIgnoreCase("S")) return "sales";
+        if (option.equalsIgnoreCase("s")) return "sale";
         else if (option.equalsIgnoreCase("p")) return "purchase";
         else if (option.equalsIgnoreCase("l")) return "ledger";
         else return "exit";
@@ -177,16 +177,16 @@ public class UserInterface {
     public String customSearchScreen() {
         System.out.println();
         System.out.println("====== CUSTOM SEARCH ======");
-        System.out.println("C) Date");
-        System.out.println("D) Description");
+        System.out.println("D) Date");
+        System.out.println("DE) Description");
         System.out.println("V) Vendor");
         System.out.println("A) Amount");
         System.out.println("L) Ledger");
         System.out.print("> ");
 
-        String option = manager.getStringInput("C", "D", "V", "A", "L");
+        String option = manager.getStringInput("D", "DE", "V", "A", "L");
 
-        if (option.equalsIgnoreCase("c")) {
+        if (option.equalsIgnoreCase("d")) {
             System.out.println();
             System.out.print("Enter start date: ");
 
@@ -196,7 +196,7 @@ public class UserInterface {
             LocalDate endDate = manager.getDateInput();
 
             manager.dateRange(startDate, endDate);
-        } else if (option.equalsIgnoreCase("d")) {
+        } else if (option.equalsIgnoreCase("de")) {
             System.out.println();
             System.out.print("Enter description: ");
 
@@ -212,15 +212,50 @@ public class UserInterface {
             manager.searchByVendor(inputVendor);
         } else if (option.equalsIgnoreCase("a")) {
             System.out.println();
-            System.out.print("Enter starting amount: ");
 
+            System.out.println("Search in:");
+            System.out.println("S) Sales (positive amounts)");
+            System.out.println("P) Purchases (negative amounts)");
+            System.out.println("B) Both");
+            System.out.print("> ");
+
+            String type = manager.getStringInput("S", "P", "B");
+
+            System.out.println();
+
+            System.out.print("Enter starting amount: $");
             double startingAmount = manager.getDoubleInput();
 
-            System.out.print("Enter ending amount: ");
+            // Validate starting amount based on type
+            if (type.equalsIgnoreCase("s")) {
+                while (startingAmount < 0) {
+                    System.out.print("Sales amount must be positive! Please enter a positive amount: $");
+                    startingAmount = manager.getDoubleInput();
+                }
+            } else if (type.equalsIgnoreCase("p")) {
+                while (startingAmount < 0) {
+                    System.out.print("Enter a positive number, we'll handle the negative: $");
+                    startingAmount = manager.getDoubleInput();
+                }
+            }
 
+            System.out.print("Enter ending amount: $");
             double endingAmount = manager.getDoubleInput();
 
-            manager.amountRange(startingAmount, endingAmount);
+            // Validate ending amount based on type
+            if (type.equalsIgnoreCase("s")) {
+                while (endingAmount < 0) {
+                    System.out.print("Sales amount must be positive! Please enter a positive amount: $");
+                    endingAmount = manager.getDoubleInput();
+                }
+            } else if (type.equalsIgnoreCase("p")) {
+                while (endingAmount < 0) {
+                    System.out.print("Enter a positive number, we'll handle the negative: $");
+                    endingAmount = manager.getDoubleInput();
+                }
+            }
+
+            manager.amountRange(startingAmount, endingAmount, type);
         }
 
         if (option.equalsIgnoreCase("l")) return "ledger";
