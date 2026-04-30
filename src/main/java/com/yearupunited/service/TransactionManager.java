@@ -37,6 +37,17 @@ public class TransactionManager {
         return fileReader.readTransactionsFromCsv(fileName);
     }
 
+    // Returns a sorted copy of transactions ordered by date and time, newest to oldest
+    private List<Transaction> getSortedTransactions() {
+        List<Transaction> sorted = new ArrayList<>(transactions);
+        sorted.sort((a, b) -> {
+            int dateCompare = b.getDate().compareTo(a.getDate());
+            if (dateCompare != 0) return dateCompare;
+            return b.getTime().compareTo(a.getTime()); // tiebreaker by time
+        });
+        return sorted;
+    }
+
     public void transactionScreen(String type) {
         System.out.print("Enter description: ");
         description = getStringInput();
@@ -96,9 +107,7 @@ public class TransactionManager {
     public void displayTransactions() {
         int count = 1;
 
-        // Creates a sorted copy of transactions ordered by date, newest to oldest
-        List<Transaction> sorted = new ArrayList<>(transactions);
-        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        List<Transaction> sorted = getSortedTransactions();
 
         System.out.println();
 
@@ -113,9 +122,7 @@ public class TransactionManager {
     public void displaySales() {
         int count = 1;
 
-        // Creates a sorted copy of transactions ordered by date, newest to oldest
-        List<Transaction> sorted = new ArrayList<>(transactions);
-        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        List<Transaction> sorted = getSortedTransactions();
 
         System.out.println();
 
@@ -134,9 +141,7 @@ public class TransactionManager {
     public void displayPurchases() {
         int count = 1;
 
-        // Creates a sorted copy of transactions ordered by date, newest to oldest
-        List<Transaction> sorted = new ArrayList<>(transactions);
-        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        List<Transaction> sorted = getSortedTransactions();
 
         System.out.println();
 
@@ -154,9 +159,7 @@ public class TransactionManager {
     public void dateFiltering(String title, int option) {
         int count = 1;
 
-        // Creates a sorted copy of transactions ordered by date, newest to oldest
-        List<Transaction> sorted = new ArrayList<>(transactions);
-        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        List<Transaction> sorted = getSortedTransactions();
 
         System.out.println();
 
@@ -202,9 +205,7 @@ public class TransactionManager {
 
         int count = 0;
 
-        // Creates a sorted copy of transactions ordered by date, newest to oldest
-        List<Transaction> sorted = new ArrayList<>(transactions);
-        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        List<Transaction> sorted = getSortedTransactions();
 
         System.out.println();
 
@@ -226,9 +227,7 @@ public class TransactionManager {
     public void searchByDescription(String userInput) {
         int count = 0;
 
-        // Creates a sorted copy of transactions ordered by date, newest to oldest
-        List<Transaction> sorted = new ArrayList<>(transactions);
-        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        List<Transaction> sorted = getSortedTransactions();
 
         System.out.println();
 
@@ -249,9 +248,7 @@ public class TransactionManager {
     public void searchByVendor(String userInput) {
         int count = 0;
 
-        // Creates a sorted copy of transactions ordered by date, newest to oldest
-        List<Transaction> sorted = new ArrayList<>(transactions);
-        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        List<Transaction> sorted = getSortedTransactions();
 
         System.out.println();
 
@@ -287,9 +284,7 @@ public class TransactionManager {
 
         int count = 0;
 
-        // Creates a sorted copy of transactions ordered by date, newest to oldest
-        List<Transaction> sorted = new ArrayList<>(transactions);
-        sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        List<Transaction> sorted = getSortedTransactions();
 
         System.out.println();
         System.out.println("====== AMOUNT RANGE: [ " + formatAmount(startingAmount) + " - " + formatAmount(endingAmount) + " ] ======");
@@ -319,7 +314,7 @@ public class TransactionManager {
         String input = scanner.nextLine();
 
         if (validOptions.length == 0) {
-            // No valid options specified
+            // No valid options specified — accept any non-empty input
             while (input.trim().isEmpty()) {
                 System.out.print("Field cannot be empty: ");
                 input = scanner.nextLine();
@@ -424,7 +419,7 @@ public class TransactionManager {
         }
     }
 
-    // Formats amount with $ or -$ symbol
+    // Formats amount with $ symbol, preserving negative sign for purchases
     public String formatAmount(double amount) {
         if (amount < 0) {
             return "-$" + String.format("%.2f", Math.abs(amount));
