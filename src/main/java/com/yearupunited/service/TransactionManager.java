@@ -10,6 +10,7 @@ import java.util.*;
 
 public class TransactionManager {
 
+    // Shared fields accessible across all methods
     private final List<Transaction> transactions;
     private final Scanner scanner;
     private final String fileName;
@@ -17,6 +18,7 @@ public class TransactionManager {
     private String vendor;
     private double amount;
 
+    // Initializes fields and loads existing transactions from CSV on startup
     public TransactionManager() {
         this.transactions = new ArrayList<>();
         this.scanner = new Scanner(System.in);
@@ -106,6 +108,8 @@ public class TransactionManager {
         System.out.println("====== ALL SALES ======");
 
         for (Transaction transaction : transactions) {
+
+            // Only display transactions with positive amounts (sales)
             if (transaction.getAmount() > 0) {
                 System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
                 count++;
@@ -122,6 +126,7 @@ public class TransactionManager {
 
         System.out.println("====== ALL PURCHASES ======");
 
+        // Only display transactions with negative amounts (purchases)
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() < 0) {
                 System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
@@ -133,6 +138,7 @@ public class TransactionManager {
     public void dateFiltering(String title, int option) {
         int count = 1;
 
+        // Creates a sorted copy of transactions ordered by date, newest to oldest
         List<Transaction> sorted = new ArrayList<>(transactions);
         sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
 
@@ -143,18 +149,28 @@ public class TransactionManager {
         for (Transaction transaction : sorted) {
             String entry = count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount();
 
+            // Checks month to date
             if (option == 1 && (transaction.getDate().getMonth() == LocalDate.now().getMonth() &&
                     transaction.getDate().getYear() == LocalDate.now().getYear())) {
                 System.out.println(entry);
                 count++;
-            } else if (option == 2 && (transaction.getDate().getMonth() == LocalDate.now().minusMonths(1).getMonth() &&
+            }
+
+            // Checks previous month
+            else if (option == 2 && (transaction.getDate().getMonth() == LocalDate.now().minusMonths(1).getMonth() &&
                     transaction.getDate().getYear() == LocalDate.now().getYear())) {
                 System.out.println(entry);
                 count++;
-            } else if (option == 3 && (transaction.getDate().getYear() == LocalDate.now().getYear())) {
+            }
+
+            // Checks year to date
+            else if (option == 3 && (transaction.getDate().getYear() == LocalDate.now().getYear())) {
                 System.out.println(entry);
                 count++;
-            } else if (option == 4 && (transaction.getDate().getYear() == LocalDate.now().getYear() - 1)) {
+            }
+
+            // Checks previous year
+            else if (option == 4 && (transaction.getDate().getYear() == LocalDate.now().getYear() - 1)) {
                 System.out.println(entry);
                 count++;
             }
@@ -162,7 +178,7 @@ public class TransactionManager {
     }
 
     public void dateRange(LocalDate startDate, LocalDate endDate) {
-        int count = 1;
+        int count = 0;
 
         List<Transaction> sorted = new ArrayList<>(transactions);
         sorted.sort((a, b) -> b.getDate().compareTo(a.getDate()));
@@ -176,8 +192,10 @@ public class TransactionManager {
 
             LocalDate date = transaction.getDate();
 
+            // Display transactions that fall within the start and end date range (inclusive)
             if (!date.isBefore(startDate) && !date.isAfter(endDate)) {
-                System.out.println(transaction);
+                count++;
+                System.out.println(entry);
             }
         }
     }
@@ -237,6 +255,7 @@ public class TransactionManager {
 
         for (Transaction transaction : transactions) {
 
+            // Display transactions that fall within the specified amount range (inclusive)
             if (transaction.getAmount() >= startingAmount && transaction.getAmount() <= endingAmount) {
                 count++;
                 System.out.println(count + ". Date: " + transaction.getDate() + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + transaction.getAmount());
@@ -252,6 +271,7 @@ public class TransactionManager {
         String input = scanner.nextLine();
 
         if (validOptions.length == 0) {
+            // No valid options specified
             while (input.trim().isEmpty()) {
                 System.out.print("Field cannot be empty: ");
                 input = scanner.nextLine();
@@ -260,12 +280,13 @@ public class TransactionManager {
         }
 
         while (true) {
+            // Reject empty input or input that doesn't match a valid option
             if (input.trim().isEmpty()) {
                 System.out.print("Field cannot be empty! Please enter a option: ");
             } else {
                 for (String option : validOptions) {
                     if (input.equalsIgnoreCase(option)) {
-                        return input;
+                        return input; // Returns true if valid option
                     }
                 }
                 System.out.print("Invalid option! Only enter one of these options [ " + String.join(", ", validOptions) + " ]: ");
@@ -273,7 +294,7 @@ public class TransactionManager {
             input = scanner.nextLine();
         }
     }
-
+    // Validates integer input, optionally restricting to a set of valid options
     public int getIntInput(int... validOptions) {
         int input = 0;
         boolean validInput = false;
@@ -288,7 +309,7 @@ public class TransactionManager {
                     input = Integer.parseInt(line);
 
                     if (validOptions.length == 0) {
-                        validInput = true; // Any number accepted
+                        validInput = true; // any number accepted
                     } else {
                         for (int option : validOptions) {
                             if (input == option) {
@@ -310,6 +331,7 @@ public class TransactionManager {
         return input;
     }
 
+    // Validates double input, rejects empty input and zero amounts
     public double getDoubleInput() {
         double input = 0;
         boolean validInput = false;
@@ -336,6 +358,7 @@ public class TransactionManager {
         return input;
     }
 
+    // Validates date input, must be in yyyy-MM-dd format
     public LocalDate getDateInput() {
         while (true) {
             String date = scanner.nextLine().trim();

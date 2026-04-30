@@ -68,7 +68,7 @@ date|time|description|vendor|amount
 
 1. Open the project in IntelliJ IDEA
 2. Locate `src/main/java/com/yearupunited/Main.java`
-3. Click the green **Run** button or press `Shift + F10`
+3. Click the green **Run** button or press `macOS: Control + R / Windows: Shift + F10` 
 4. Interact with the application through the terminal
 
 ---

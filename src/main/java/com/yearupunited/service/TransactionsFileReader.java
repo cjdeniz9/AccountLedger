@@ -16,7 +16,7 @@ public class TransactionsFileReader {
         ArrayList<Transaction> transactions = new ArrayList<>();
 
         try (BufferedReader bufReader = new BufferedReader(new FileReader(fileName))) {
-            String line = bufReader.readLine();
+            String line = bufReader.readLine(); // Skips header
 
             while ((line = bufReader.readLine()) != null) {
                 String[] parts = line.split("\\|");

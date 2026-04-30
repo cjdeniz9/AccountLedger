@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+// Represents a single financial transaction with date, time, description, vendor, and amount
 public class Transaction {
     private LocalDate date;
     private LocalTime time;
@@ -11,6 +12,7 @@ public class Transaction {
     private String vendor;
     private double amount;
 
+    // Initializes a transaction with all required fields
     public Transaction(LocalDate _date, LocalTime _time, String _description, String _vendor, double _amount) {
         this.date = _date;
         this.time = _time;

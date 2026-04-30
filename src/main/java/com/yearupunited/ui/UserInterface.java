@@ -12,6 +12,9 @@ public class UserInterface {
         this.manager = manager;
     }
 
+    // Drives the entire application through a screen based navigation loop
+    // Each screen method returns the name of the next screen to navigate to
+    // Keeping navigation clean and free of recursive stacking issues
     public void start() {
         String currentScreen = "home";
 
@@ -140,6 +143,7 @@ public class UserInterface {
         } else if (filterOption == 5) {
             boolean searchingVendor = true;
 
+            // Loops vendor screen until user wants to return
             while (searchingVendor) {
                 System.out.println();
                 System.out.print("Enter vendor name: ");
