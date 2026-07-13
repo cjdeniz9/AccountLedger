@@ -20,7 +20,6 @@ public class Transaction {
         this.vendor = _vendor;
         this.amount = _amount;
     }
-    //test comment PR
 
     public LocalDate getDate() {
         return date;
