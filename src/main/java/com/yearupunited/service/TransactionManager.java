@@ -24,7 +24,7 @@ public class TransactionManager {
     public TransactionManager() {
         this.transactions = new ArrayList<>();
         this.scanner = new Scanner(System.in);
-        this.fileName = "/Users/cjdeniz/Projects/AccountLedger/src/main/transactions.csv";
+        this.fileName = "src/main/transactions.csv";
         this.transactions.addAll(handleFileReader());
         this.description = "";
         this.vendor = "";
