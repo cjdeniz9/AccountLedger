@@ -104,6 +104,19 @@ public class TransactionManager {
         System.out.println("Purchase added!");
     }
 
+    // Builds a single ledger line, appending a [REFUNDED: date | Time: time] tag if applicable.
+// Used by every display/search method so refund status shows up consistently everywhere.
+    private String formatTransactionLine(int count, Transaction transaction) {
+        String line = count + ". Date: " + transaction.getDate().format(fmt) + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + formatAmount(transaction.getAmount());
+
+        if (transaction.isRefunded()) {
+            line += " [REFUNDED: " + transaction.getRefundDate().format(fmt) + " | Time: " + transaction.getRefundTime() + "]";
+        }
+
+        return line;
+    }
+
+
     public void displayTransactions() {
         int count = 1;
 
@@ -132,8 +145,8 @@ public class TransactionManager {
 
             // Only display transactions with positive amounts (sales)
             if (transaction.getAmount() > 0) {
-                System.out.println(count + ". Date: " + transaction.getDate().format(fmt) + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + formatAmount(transaction.getAmount()));
-                count++;
+                System.out.println(formatTransactionLine(count, transaction));
+                count++;                count++;
             }
         }
     }
@@ -150,8 +163,8 @@ public class TransactionManager {
         // Only display transactions with negative amounts (purchases)
         for (Transaction transaction : sorted) {
             if (transaction.getAmount() < 0) {
-                System.out.println(count + ". Date: " + transaction.getDate().format(fmt) + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + formatAmount(transaction.getAmount()));
-                count++;
+                System.out.println(formatTransactionLine(count, transaction));
+                count++;                count++;
             }
         }
     }
@@ -166,8 +179,7 @@ public class TransactionManager {
         System.out.println("====== " + title + " ======");
 
         for (Transaction transaction : sorted) {
-            String entry = count + ". Date: " + transaction.getDate().format(fmt) + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + formatAmount(transaction.getAmount());
-
+            String entry = formatTransactionLine(count, transaction);
             // Checks month to date
             if (option == 1 && (transaction.getDate().getMonth() == LocalDate.now().getMonth() &&
                     transaction.getDate().getYear() == LocalDate.now().getYear())) {
@@ -212,7 +224,7 @@ public class TransactionManager {
         System.out.println("====== DATE RANGE: [ " + startDate.format(fmt) + " - " + endDate.format(fmt) + " ] ======");
 
         for (Transaction transaction : sorted) {
-            String entry = count + ". Date: " + transaction.getDate().format(fmt) + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + formatAmount(transaction.getAmount());
+            String entry = formatTransactionLine(count, transaction);
 
             LocalDate date = transaction.getDate();
 
@@ -236,8 +248,7 @@ public class TransactionManager {
         for (Transaction transaction : sorted) {
             if (transaction.getDescription().toLowerCase().contains(userInput.toLowerCase())) {
                 count++;
-                System.out.println(count + ". Date: " + transaction.getDate().format(fmt) + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + formatAmount(transaction.getAmount()));
-            }
+                System.out.println(formatTransactionLine(count, transaction));            }
         }
 
         if (count == 0) {
@@ -257,8 +268,7 @@ public class TransactionManager {
         for (Transaction transaction : sorted) {
             if (transaction.getVendor().toLowerCase().contains(userInput.toLowerCase())) {
                 count++;
-                System.out.println(count + ". Date: " + transaction.getDate().format(fmt) + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + formatAmount(transaction.getAmount()));
-            }
+                System.out.println(formatTransactionLine(count, transaction));            }
         }
 
         if (count == 0) {
@@ -301,8 +311,7 @@ public class TransactionManager {
             // Display transactions that fall within the specified amount range (inclusive)
             if (inRange) {
                 count++;
-                System.out.println(count + ". Date: " + transaction.getDate().format(fmt) + " | Time: " + transaction.getTime() + " | Description: " + transaction.getDescription() + " | Vendor: " + transaction.getVendor() + " | Amount: " + formatAmount(transaction.getAmount()));
-            }
+                System.out.println(formatTransactionLine(count, transaction));            }
         }
 
         if (count == 0) {
@@ -336,6 +345,92 @@ public class TransactionManager {
             }
             input = scanner.nextLine();
         }
+    }
+
+    public void refundTransaction(String searchTerm) {
+        List<Transaction> allMatches = new ArrayList<>();
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getDescription().toLowerCase().contains(searchTerm.toLowerCase())) {
+                allMatches.add(transaction);
+            }
+        }
+
+        if (allMatches.isEmpty()) {
+            System.out.println();
+            System.out.println("No transaction found matching \"" + searchTerm + "\".");
+            return;
+        }
+
+        // Only transactions that aren't already refunded are eligible to be refunded again
+        List<Transaction> refundable = new ArrayList<>();
+        for (Transaction transaction : allMatches) {
+            if (!transaction.isRefunded()) {
+                refundable.add(transaction);
+            }
+        }
+
+        if (refundable.isEmpty()) {
+            System.out.println();
+            System.out.println("\"" + searchTerm + "\" has already been refunded.");
+            return;
+        }
+
+        Transaction target;
+
+        if (refundable.size() == 1) {
+            target = refundable.get(0);
+        } else {
+            // Multiple matching purchases (e.g. bought the same item twice) — let the user pick which one
+            System.out.println();
+            System.out.println("Multiple matching transactions found, please choose one:");
+
+            for (int i = 0; i < refundable.size(); i++) {
+                System.out.println(formatTransactionLine(i + 1, refundable.get(i)));
+            }
+
+            System.out.print("> ");
+            int choice = getIntInput(range(1, refundable.size()));
+            target = refundable.get(choice - 1);
+        }
+
+        target.setRefundDate(LocalDate.now());
+        target.setRefundTime(LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
+
+        // Refunding updates an existing row rather than adding a new one, so the whole file is rewritten
+        TransactionFileWriter.rewriteAllTransactions(fileName, transactions);
+
+        System.out.println();
+        System.out.println("\"" + target.getDescription() + "\" has been marked as [REFUNDED].");
+    }
+
+    public void displayRefundedTransactions() {
+        int count = 0;
+
+        List<Transaction> sorted = getSortedTransactions();
+
+        System.out.println();
+        System.out.println("====== ITEMS REFUNDED ======");
+
+        for (Transaction transaction : sorted) {
+            if (transaction.isRefunded()) {
+                count++;
+                System.out.println(formatTransactionLine(count, transaction));
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("No refunded transactions found.");
+        }
+    }
+
+    // Small helper to build an int[] of consecutive numbers for getIntInput's valid-options check
+    private int[] range(int start, int end) {
+        int[] values = new int[end - start + 1];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = start + i;
+        }
+        return values;
     }
 
     // Validates integer input, optionally restricting to a set of valid options
