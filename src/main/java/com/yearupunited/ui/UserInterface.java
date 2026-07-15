@@ -2,11 +2,16 @@ package com.yearupunited.ui;
 
 import com.yearupunited.model.User;
 import com.yearupunited.service.TransactionManager;
+import java.util.Scanner;
 import com.yearupunited.service.UserManager;
 
 import java.time.LocalDate;
 
 public class UserInterface {
+
+    //Added to UserInterface Class
+    private final Scanner scanner = new Scanner(System.in);
+    private final InputValidator validator = new InputValidator(scanner);
 
     private final TransactionManager manager;
     private final UserManager userManager;
