@@ -1,7 +1,10 @@
 package com.yearupunited.ui;
 
+import com.yearupunited.model.User;
 import com.yearupunited.service.TransactionManager;
 import java.util.Scanner;
+import com.yearupunited.service.UserManager;
+
 import java.time.LocalDate;
 
 public class UserInterface {
@@ -11,9 +14,12 @@ public class UserInterface {
     private final InputValidator validator = new InputValidator(scanner);
 
     private final TransactionManager manager;
+    private final UserManager userManager;
 
-    public UserInterface(TransactionManager manager) {
+    public UserInterface(TransactionManager manager, UserManager userManager) {
+
         this.manager = manager;
+        this.userManager = userManager;
     }
 
     // Drives the entire application through a screen based navigation loop
@@ -30,6 +36,8 @@ public class UserInterface {
                 case "ledger" -> currentScreen = ledgerScreen();
                 case "reports" -> currentScreen = reportsScreen();
                 case "custom" -> currentScreen = customSearchScreen();
+                case "users" -> currentScreen = userScreen();
+                case "refund" -> currentScreen = refundScreen();
                 default -> currentScreen = "home";
             }
         }
@@ -47,14 +55,18 @@ public class UserInterface {
         System.out.println("S) Add Sale");
         System.out.println("P) Add Purchase");
         System.out.println("L) Ledger");
+        System.out.println("U) Users");
+        System.out.println("R) Refund");
         System.out.println("X) Exit");
         System.out.print("> ");
 
-        String option = manager.getStringInput("S", "P", "L", "X");
+        String option = manager.getStringInput("S", "P", "L", "U", "R", "X");
 
         if (option.equalsIgnoreCase("s")) return "sale";
         else if (option.equalsIgnoreCase("p")) return "purchase";
         else if (option.equalsIgnoreCase("l")) return "ledger";
+        else if (option.equalsIgnoreCase("u")) return "users";
+        else if (option.equalsIgnoreCase("r")) return "refund";
         else return "exit";
     }
 
@@ -122,6 +134,33 @@ public class UserInterface {
         }
     }
 
+    public String userScreen() {
+        System.out.println();
+        System.out.println("====== USER SCREEN ======");
+        if (userManager.getCurrentUser() != null) {
+            System.out.println("You are logged in as: " + userManager.getCurrentUser().getUserName());
+        }
+        else {
+            System.out.println("No user is logged in");
+        }
+        System.out.println("N) New user");
+        System.out.println("L) Log into existing user");
+        System.out.println("X) Back");
+        System.out.print("> ");
+
+        String option = manager.getStringInput("N", "L", "X");
+
+        if (option.equalsIgnoreCase("n")) {
+            createUser();
+            return "users";
+        } else if (option.equalsIgnoreCase("l")) {
+            loginUser();
+            return "users";
+        } else {
+            return "home";
+        }
+    }
+
     public String reportsScreen() {
         System.out.println();
         System.out.println("====== REPORTS ======");
@@ -176,6 +215,35 @@ public class UserInterface {
         }
 
         return "reports";
+    }
+
+
+    public String refundScreen() {
+        System.out.println();
+        System.out.println("====== REFUND ======");
+        System.out.println("1) Refund an Item");
+        System.out.println("2) Items Refunded");
+        System.out.println("0) Home");
+        System.out.print("> ");
+
+        int option = manager.getIntInput(0, 1, 2);
+
+        if (option == 1) {
+            System.out.println();
+            System.out.println("Type the name of the item you'd like to refund (Song or Product name + band if song):");
+            System.out.print("> ");
+
+            String itemName = manager.getStringInput();
+
+            manager.refundTransaction(itemName);
+
+            return "refund";
+        } else if (option == 2) {
+            manager.displayRefundedTransactions();
+            return "refund";
+        } else {
+            return "home";
+        }
     }
 
     public String customSearchScreen() {
@@ -264,5 +332,38 @@ public class UserInterface {
 
         if (option.equalsIgnoreCase("l")) return "ledger";
         else return "custom";
+    }
+
+    private void createUser() {
+        System.out.println();
+        System.out.print("Enter new user ID. \nCan contain letters, numbers, hyphens, and underscores: ");
+        String id = manager.getStringInput();
+
+        if (!User.isValidId(id)) {
+            System.out.println("Invalid ID. Use letters, numbers, hyphens, or underscores only. ");
+            return;
+        }
+        if (userManager.exists(id)) {
+            System.out.println("User with this ID already exists. Try logging in instead.");
+            return;
+        }
+        System.out.println("Enter new user name: ");
+        String name = manager.getStringInput();
+
+        userManager.createUser(id, name);
+        System.out.println("User \"" + id + "\" created!");
+    }
+
+    private void loginUser() {
+        System.out.println();
+        System.out.println("Enter user ID: ");
+        String id = manager.getStringInput();
+
+        if (userManager.login(id)) {
+            System.out.println("Welcome, " +userManager.getCurrentUser().getUserName());
+
+        } else {
+            System.out.println("No user found with ID: \"" + id + "\"");
+        }
     }
 }

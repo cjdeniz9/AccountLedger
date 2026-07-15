@@ -12,6 +12,10 @@ public class Transaction {
     private String vendor;
     private double amount;
 
+    // Set only when this transaction has been refunded; null/unset means not refunded
+    private LocalDate refundDate;
+    private LocalTime refundTime;
+
     // Initializes a transaction with all required fields
     public Transaction(LocalDate _date, LocalTime _time, String _description, String _vendor, double _amount) {
         this.date = _date;
@@ -61,16 +65,43 @@ public class Transaction {
         this.amount = _amount;
     }
 
+    public LocalDate getRefundDate() {
+        return refundDate;
+    }
+
+    public void setRefundDate(LocalDate _refundDate) {
+        this.refundDate = _refundDate;
+    }
+
+    public LocalTime getRefundTime() {
+        return refundTime;
+    }
+
+    public void setRefundTime(LocalTime _refundTime) {
+        this.refundTime = _refundTime;
+    }
+
+    // A transaction is considered refunded once both refund date and time are set
+    public boolean isRefunded() {
+        return refundDate != null && refundTime != null;
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-        return String.format("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f",
+        String base = String.format("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f",
                 date.format(dateFmt),
                 time.format(timeFmt),
                 description,
                 vendor,
                 amount);
+
+        if (isRefunded()) {
+            base += " [REFUNDED: " + refundDate.format(dateFmt) + " | Time: " + refundTime.format(timeFmt) + "]";
+        }
+
+        return base;
     }
 }
