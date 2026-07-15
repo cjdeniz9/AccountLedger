@@ -18,7 +18,7 @@ public class UserFileReader {
                 if (line.trim().isEmpty()) continue;
 
                 String[] parts = line.split("\\|");
-                if  (parts.length 1= 2) {
+                if  (parts.length != 2) {
                     System.out.println("Skipping incorrect line " + line);
                     continue;
                 }

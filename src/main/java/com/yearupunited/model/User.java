@@ -12,4 +12,10 @@ public class User {
     public String getUserId() {return this.userId;}
     public String getUserName() {return this.userName;}
 
+
+
+    //valid id check
+    public static boolean isValidId(String id) {
+        return id != null && id.matches("[a-zA-Z0-9_-]+");
+    }
 }
