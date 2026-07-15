@@ -19,8 +19,15 @@ public class TransactionsFileReader {
             String line = bufReader.readLine(); // Skips header
 
             while ((line = bufReader.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+                if (line.toLowerCase().startsWith("date|")) continue;
                 // -1 keeps trailing empty fields (e.g. blank refund columns) instead of dropping them
-                String[] parts = line.split("\\|", -1);
+                String[] parts = line.split("\\|");
+                if (parts.length !=5) {
+                    System.out.println("Skippinv invalid row..." + line);
+                    continue;
+                }
 
                 // 5 columns = legacy row with no refund info, 7 columns = row with refund columns present
                 if (parts.length != 5 && parts.length != 7) {
