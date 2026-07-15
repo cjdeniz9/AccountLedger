@@ -19,9 +19,11 @@ public class TransactionsFileReader {
             String line = bufReader.readLine(); // Skips header
 
             while ((line = bufReader.readLine()) != null) {
-                String[] parts = line.split("\\|");
+                // -1 keeps trailing empty fields (e.g. blank refund columns) instead of dropping them
+                String[] parts = line.split("\\|", -1);
 
-                if (parts.length != 5) {
+                // 5 columns = legacy row with no refund info, 7 columns = row with refund columns present
+                if (parts.length != 5 && parts.length != 7) {
                     System.out.println("Skipping invalid row: " + line);
                     continue;
                 }
@@ -33,6 +35,17 @@ public class TransactionsFileReader {
                 double amount = Double.parseDouble(parts[4].trim());
 
                 Transaction transaction = new Transaction(date, time, description, vendor, amount);
+
+                if (parts.length == 7) {
+                    String refundDateStr = parts[5].trim();
+                    String refundTimeStr = parts[6].trim();
+
+                    if (!refundDateStr.isEmpty() && !refundTimeStr.isEmpty()) {
+                        transaction.setRefundDate(LocalDate.parse(refundDateStr));
+                        transaction.setRefundTime(LocalTime.parse(refundTimeStr));
+                    }
+                }
+
                 transactions.add(transaction);
             }
 

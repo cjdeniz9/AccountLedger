@@ -32,6 +32,7 @@ public class UserInterface {
                 case "reports" -> currentScreen = reportsScreen();
                 case "custom" -> currentScreen = customSearchScreen();
                 case "users" -> currentScreen = userScreen();
+                case "refund" -> currentScreen = refundScreen();
                 default -> currentScreen = "home";
             }
         }
@@ -50,15 +51,17 @@ public class UserInterface {
         System.out.println("P) Add Purchase");
         System.out.println("L) Ledger");
         System.out.println("U) Users");
+        System.out.println("R) Refund");
         System.out.println("X) Exit");
         System.out.print("> ");
 
-        String option = manager.getStringInput("S", "P", "L", "U", "X");
+        String option = manager.getStringInput("S", "P", "L", "U", "R", "X");
 
         if (option.equalsIgnoreCase("s")) return "sale";
         else if (option.equalsIgnoreCase("p")) return "purchase";
         else if (option.equalsIgnoreCase("l")) return "ledger";
         else if (option.equalsIgnoreCase("u")) return "users";
+        else if (option.equalsIgnoreCase("r")) return "refund";
         else return "exit";
     }
 
@@ -207,6 +210,35 @@ public class UserInterface {
         }
 
         return "reports";
+    }
+
+
+    public String refundScreen() {
+        System.out.println();
+        System.out.println("====== REFUND ======");
+        System.out.println("1) Refund an Item");
+        System.out.println("2) Items Refunded");
+        System.out.println("0) Home");
+        System.out.print("> ");
+
+        int option = manager.getIntInput(0, 1, 2);
+
+        if (option == 1) {
+            System.out.println();
+            System.out.println("Type the name of the item you'd like to refund (Song or Product name + band if song):");
+            System.out.print("> ");
+
+            String itemName = manager.getStringInput();
+
+            manager.refundTransaction(itemName);
+
+            return "refund";
+        } else if (option == 2) {
+            manager.displayRefundedTransactions();
+            return "refund";
+        } else {
+            return "home";
+        }
     }
 
     public String customSearchScreen() {
