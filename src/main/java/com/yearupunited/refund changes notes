@@ -1,0 +1,35 @@
+                Transaction.java
+added two new fields: refundDate (LocalDate) and refundTime (LocalTime). Both are null until a transaction is refunded (LINE: 16–17)
+added isRefunded() — returns true only when both refund fields are set. This is the source for refund status across the whole app (LINE: 85–87)
+added standard getters/setters for the two new fields (LINE: 68–82)
+updated toString() to append the [REFUNDED: ...] tag automatically when isRefunded() is true. Non-refunded transactions print exactly as before (LINE: 101–103)
+
+
+                 TransactionsFileReader.java
+the csv format is now date|time|description|vendor|amount|refundDate|refundTime — 2 new optional columns.
+backward compatible: old 5-column rows (no refund columns at all) still load fine (LINE: 26–29)
+new 7-column rows load the refund date/time only if those columns are actually filled in; empty refund columns are treated as "not refunded" (LINE: 39–47)
+
+
+                 TransactionFileWriter.java
+kept the original writeTransactionFileWriter() method (appends a single new line) — used for new sales/purchases, unchanged in behavior (LINE: 12–20)
+
+[added a new method: rewriteAllTransactions() — rewrites the entire CSV file from the current in-memory list.
+refunding modifies a transaction that's already saved somewhere in the middle of the file so the whole file has to be rewritten(couldnt figure out another way)(LINE: 25–37)]
+
+both methods now share a private buildLine() helper so the pipe-delimited format doesnt desync between the two (LINE: 40–51)
+
+
+                  TransactionManager.java
++ a shared formatTransactionLine() method (LINE: 109–117) used by every display/search method
++ refundTransaction(String searchTerm) (LINE: 328–383):
++ displayRefundedTransactions() — lists only refunded transactions (LINE: 385–403)
++ a small private range() helper used to validate numeric input when picking from multiple matches (LINE: 406–412)
+
+
+                  UserInterface.java
++ case "refund" -> currentScreen = refundScreen(); to the main navigation switch in start() (LINE: 29)
++ R) Refund to the home screen menu (LINE: 47), the accepted-input list (LINE: 51), and the routing check (LINE: 56)
++ a new refundScreen() method with the two sub-options described above (LINE: 180–204)
+
+
